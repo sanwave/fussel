@@ -175,35 +175,35 @@ class Photo:
 
     @classmethod
     def process_photo(cls, external_path, photo, filename, slug, output_path, people_q: Queue):
-        new_original_photo = os.path.join(
-            output_path, "original_%s%s" % (os.path.basename(slug), extract_extension(photo)))
+        #new_original_photo = os.path.join(
+        #    output_path, "original_%s%s" % (os.path.basename(slug), extract_extension(photo)))
 
         # Verify original first to avoid PIL errors later when generating thumbnails etc
         try:
             with Image.open(photo) as im:
                 im.verify()
             # Unfortunately verify only catches a few defective images, this transpose catches more. Verify requires subsequent reopen according to Pillow docs.
-            with Image.open(photo) as im2:
-                im2.transpose(Image.FLIP_TOP_BOTTOM)
+            #with Image.open(photo) as im2:
+            #    im2.transpose(Image.FLIP_TOP_BOTTOM)
         except Exception as e:
             raise PhotoProcessingFailure(
                 message="Image Verification: " + str(e))
 
         # Only copy if overwrite explicitly asked for or if doesn't exist
-        if Config.instance().overwrite or not os.path.exists(new_original_photo):
-            print(f' ----> Copying to [magenta]{new_original_photo}[/magenta]')
-            shutil.copyfile(photo, new_original_photo)
+        #if Config.instance().overwrite or not os.path.exists(new_original_photo):
+        #    print(f' ----> Copying to [magenta]{new_original_photo}[/magenta]')
+        #    shutil.copyfile(photo, new_original_photo)
 
         try:
-            with Image.open(new_original_photo) as im:
+            with Image.open(photo) as im:
                 original_size = im.size
                 width, height = im.size
         except UnidentifiedImageError as e:
-            shutil.rmtree(new_original_photo, ignore_errors=True)
+            #shutil.rmtree(new_original_photo, ignore_errors=True)
             raise PhotoProcessingFailure(message=str(e))
 
         # TODO expose to config
-        sizes = [(500, 500), (800, 800), (1024, 1024), (1600, 1600)]
+        sizes = [(500, 500), (1600, 1600)]
         largest_src = None
         smallest_src = None
 
@@ -220,23 +220,23 @@ class Photo:
 
             # Only generate if overwrite explicitly asked for or if doesn't exist
             msg += f'[cyan]{new_size[0]}x{new_size[1]}[/cyan] '
-            if Config.instance().overwrite or not os.path.exists(new_sub_photo):
-                with Image.open(new_original_photo) as im:
-                    im.thumbnail(new_size)
-                    if Config.instance().exif_transpose:
-                        im = ImageOps.exif_transpose(im)
-                    im.save(new_sub_photo)
+            #if Config.instance().overwrite or not os.path.exists(new_sub_photo):
+            #    with Image.open(new_original_photo) as im:
+            #        im.thumbnail(new_size)
+            #        if Config.instance().exif_transpose:
+            #            im = ImageOps.exif_transpose(im)
+            #        im.save(new_sub_photo)
             srcSet[str(size)+"w"] = ["%s/%s" % (quote(external_path),
                                                 quote(os.path.basename(new_sub_photo)))]
 
         print(msg)
 
         # Only copy if overwrite explicitly asked for or if doesn't exist
-        if Config.instance().watermark_enabled and (Config.instance().overwrite or not os.path.exists(new_original_photo)):
-            with Image.open(Config.instance().watermark_path) as watermark_im:
-                print(" ------> Adding watermark")
-                apply_watermark(largest_src, watermark_im,
-                                Config.instance().watermark_ratio)
+        #if Config.instance().watermark_enabled and (Config.instance().overwrite or not os.path.exists(new_original_photo)):
+        #    with Image.open(Config.instance().watermark_path) as watermark_im:
+        #        print(" ------> Adding watermark")
+        #        apply_watermark(largest_src, watermark_im,
+        #                        Config.instance().watermark_ratio)
 
         photo_obj = Photo(
             filename,
@@ -252,7 +252,7 @@ class Photo:
 
         # Faces
         if Config.instance().people_enabled:
-            people_q.put((photo_obj, new_original_photo,
+            people_q.put((photo_obj, photo,
                          largest_src, output_path, external_path))
 
         return photo_obj
