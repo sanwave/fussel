@@ -208,6 +208,7 @@ class Photo:
         smallest_src = None
 
         srcSet = {}
+        srcSet["orig"] = ["%s" % (quote(photo))]
 
         msg = " ------> Generating photo sizes: "
         for i, size in enumerate(sizes):
