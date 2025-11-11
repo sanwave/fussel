@@ -152,10 +152,10 @@ class Collection extends Component {
           </div>
         </section>
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 300: 1, 600: 2, 900: 3, 1200: 4, 1500: 5 }}
+          columnsCountBreakPoints={{ 400: 1, 800: 2, 1200: 3, 1800: 5, 3600: 8 }}
         >
           <Masonry
-            gutter="10px"
+            gutter="3px"
           >
             {collection_data["photos"].map((image, i) => (
               <img

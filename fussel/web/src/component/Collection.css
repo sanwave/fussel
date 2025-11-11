@@ -12,10 +12,16 @@ Keep an eye on the ticket and maybe one day I can remove this */
   top: 15px;
 }
 
+.container{
+  max-width: 100% !important;
+  padding: 3px;
+}
+
 .gallery-image{
   width: "100%";
   display: "block";
   cursor: pointer;
+  border-radius: 3px;
 }
 
 .footer {
