@@ -35,15 +35,16 @@ Keep an eye on the ticket and maybe one day I can remove this */
   display:flex;
 }
 
-.swiper-slide-left {
+.swiper-slide-img {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.swiper-slide-right {
-  width: 300px;
+.swiper-slide-sidebar {
+  width: 12%;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -70,19 +71,48 @@ Keep an eye on the ticket and maybe one day I can remove this */
   padding: 16px;
   flex: 1;
   overflow-y: auto;
+  text-align: left;
+  color: #c3c3c3;
+}
+
+.sidebar-exif h4 {
+  margin: 0 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+.sidebar-exif ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.sidebar-exif li {
+  margin-bottom: 6px;
+}
+
+.sidebar-exif svg {
+  vertical-align:middle;
+}
+
+.sidebar-exif span {
+  padding: 0px 3px;
 }
 
 .swiper-slide img {
   width: auto;
   height: auto;
-  max-width: 100%;
+  max-width: 80%;
   max-height: 100%;
   -ms-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   position: absolute;
-  left: 50%;
+  left: 44%;
   top: 50%;
   object-fit: contain;
   user-select: none;

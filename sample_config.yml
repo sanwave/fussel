@@ -37,12 +37,12 @@ gallery:
     # Setting to True adds a faces button and virtual albums for detected people
     # Setting to False disables the feature
     # Default: True
-    enable: True
+    enable: False
 
   watermark:
     # Enable placement of watermark in bottom right corner of photos.
     # Default: True
-    enable: True
+    enable: False
 
     # Specify path to custome watermark
     # Should be a transparent png

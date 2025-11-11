@@ -12,4 +12,5 @@ pip install -r requirements.txt
 
 cd web
 yarn install
+npm install exifr
 

@@ -203,7 +203,7 @@ class Photo:
             raise PhotoProcessingFailure(message=str(e))
 
         # TODO expose to config
-        sizes = [(500, 500), (1600, 1600)]
+        sizes = [(500, 500), (2000, 2000)]
         largest_src = None
         smallest_src = None
 
@@ -221,12 +221,15 @@ class Photo:
 
             # Only generate if overwrite explicitly asked for or if doesn't exist
             msg += f'[cyan]{new_size[0]}x{new_size[1]}[/cyan] '
-            #if Config.instance().overwrite or not os.path.exists(new_sub_photo):
-            #    with Image.open(new_original_photo) as im:
-            #        im.thumbnail(new_size)
-            #        if Config.instance().exif_transpose:
-            #            im = ImageOps.exif_transpose(im)
-            #        im.save(new_sub_photo)
+            if Config.instance().overwrite or not os.path.exists(new_sub_photo):
+                with Image.open(photo) as im:
+                    im.thumbnail(new_size)
+                    if Config.instance().exif_transpose:
+                        im = ImageOps.exif_transpose(im)
+                    if "exif" in im.info:
+                        im.save(new_sub_photo, exif=im.info["exif"])
+                    else:
+                        im.save(new_sub_photo)
             srcSet[str(size)+"w"] = ["%s/%s" % (quote(external_path),
                                                 quote(os.path.basename(new_sub_photo)))]
 
