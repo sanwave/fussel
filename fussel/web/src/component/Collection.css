@@ -12,9 +12,13 @@ Keep an eye on the ticket and maybe one day I can remove this */
   top: 15px;
 }
 
-.container{
-  max-width: 100% !important;
+.container {
+  max-width: 77% !important;
   padding: 3px;
+}
+
+.column {
+  padding: 1.2rem;
 }
 
 .gallery-image{
