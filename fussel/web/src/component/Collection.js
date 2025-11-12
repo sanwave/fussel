@@ -155,7 +155,7 @@ class Collection extends Component {
           columnsCountBreakPoints={{ 400: 1, 800: 2, 1200: 3 }}
         >
           <Masonry
-            gutter="0.01rem"
+            gutter="2px"
           >
             {collection_data["photos"].map((image, i) => (
               <img
