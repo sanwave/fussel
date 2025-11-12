@@ -203,7 +203,7 @@ class Photo:
             raise PhotoProcessingFailure(message=str(e))
 
         # TODO expose to config
-        sizes = [(500, 500), (2000, 2000)]
+        sizes = [(2000, 2000)]
         largest_src = None
         smallest_src = None
 

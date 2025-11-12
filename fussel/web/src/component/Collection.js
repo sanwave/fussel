@@ -161,7 +161,7 @@ class Collection extends Component {
               <img
                 className="gallery-image"
                 key={i}
-                src={image.srcSet["(500, 500)w"]}
+                src={image.src}
                 alt={image.name}
                 slug={image.slug}
                 loading="lazy"
