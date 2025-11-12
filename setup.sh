@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-ln -s /usr/bin/python3 /usr/bin/python
+ln -s /usr/bin/python3 /usr/bin/python || true
 
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 yum install yarn -y
