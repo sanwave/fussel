@@ -86,7 +86,7 @@ class Collection extends Component {
   }
 
   openModal = (event) => {
-
+    this.lastScrollY = window.scrollY;
     this.props.navigate("/collections/" + this.props.params.collectionType + "/" + this.props.params.collection + "/" + event.target.attributes.slug.value);
     this.setState({
       viewerIsOpen: true
@@ -100,9 +100,9 @@ class Collection extends Component {
   closeModal = () => {
 
     this.props.navigate("/collections/" + this.props.params.collectionType + "/" + this.props.params.collection);
-    this.setState({
-      viewerIsOpen: false
-    })
+    this.setState({ viewerIsOpen: false }, () => {
+      window.scrollTo(0, this.lastScrollY || 0);
+    });
     // var page = document.getElementsByTagName('body')[0];
     // page.classList.remove('noscroll');
   };
